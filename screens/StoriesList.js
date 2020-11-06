@@ -12,10 +12,12 @@ const StoriesList = ({ navigation }) => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState();
 
+ 
+
   const getUserData = (uid) => {
     const docRef = firebase.firestore().collection("Users").doc(uid);
 
-    docRef.get().then(function (doc) {
+    /*docRef.get().then(function (doc) {
       if (doc.exists) {
         const userData = doc.data();
         setUserInfo(userData);
@@ -26,7 +28,7 @@ const StoriesList = ({ navigation }) => {
         setLoading(false);
         console.log("DOcument not exist!");
       }
-    });
+    });*/
 
   };
 
@@ -38,7 +40,7 @@ const StoriesList = ({ navigation }) => {
         if (user) {
           getUserData(user.uid);
 
-          firebase.firestore().collection("Users").doc(userInfo.uid).collection('Stories').get()
+          firebase.firestore().collection("Users").doc(user.uid).collection('Stories').get()
           .then(response => {
           const allStories = [];
           response.docs.forEach(document => {
