@@ -21,7 +21,7 @@ const StoriesList = ({ navigation }) => {
         setUserInfo(userData);
         setTimeout(() => {
           setLoading(false);
-        }, 100);
+        });
       } else {
         setLoading(false);
         console.log("DOcument not exist!");
@@ -38,28 +38,29 @@ const StoriesList = ({ navigation }) => {
         if (user) {
           getUserData(user.uid);
 
-          const storyContainer = firebase.firestore().collection("Users").doc(userInfo.uid).collection('Stories').get()
+          firebase.firestore().collection("Users").doc(userInfo.uid).collection('Stories').get()
           .then(response => {
-            const allStories = [];
-            response.docs.forEach(document => {
-              const selectStory = {
-                id: document.id,
-                ...document.data()
-              };
-              allStories.push(selectStory);
-            });
-            setStories(allStories);
+          const allStories = [];
+          response.docs.forEach(document => {
+            const selectStory = {
+              id: document.id,
+              ...document.data()
+            };
+            allStories.push(selectStory);
+          });
+          setStories(allStories);
           })
-
-          return storyContainer;
 
         } else {
           setUserInfo(null);
           setLoading(false);
           navigation.navigate("Login");
         }
+
+        
       });
-    }); 
+
+    });
 
     return isFocused;
 
@@ -92,11 +93,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   entry: {
-    margin: 10,
+    marginVertical: 10,
     borderWidth: 2,
     backgroundColor: "darkslateblue",
     borderColor: "yellow",
     borderRadius: 10,
+    width: "100%"
   },
   pageTitle: {
     textAlign: "center",
@@ -120,14 +122,14 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 18,
-    paddingHorizontal: 15,
+    marginHorizontal: 15,
     paddingVertical: 10,
     color: "yellow",
     fontWeight: "700",
   },
   storyText: {
     fontSize: 18,
-    paddingHorizontal: 15,
+    marginHorizontal: 15,
     paddingVertical: 10,
     color: "white",
     fontWeight: "700",

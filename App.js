@@ -53,12 +53,10 @@ const uploadStackNavigator = () => {
 const viewStackNavigator = () => {
   return (
     <viewStack.Navigator>
-      <viewStack.Screen name="Stories" component={StoriesList} />
+      <viewStack.Screen name="Stories List" component={StoriesList} />
     </viewStack.Navigator>
   );
 };
-
-
 
 const DrawerNavigator = () => {
   return (
